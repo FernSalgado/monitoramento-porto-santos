@@ -1,0 +1,60 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    List<ClimaTempo> climaTempo = (List<ClimaTempo>)TempData["ClimaTempo"];
+    List<MarineTraffic> marineTraffic = (List<MarineTraffic>) TempData["MarineTraffic"];
+}
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+
+        </ul>
+    </div>
+    <div class="text-center">
+        <script type="text/javascript">
+            width = '100%'; // the width of the embedded map in pixels or percentage
+            height = '450'; // the height of the embedded map in pixels or percentage
+            border = '1'; // the width of the border around the map (zero means no border)
+            shownames = 'false'; // to display ship names on the map (true or false)
+            latitude = '-23.9868'; // the latitude of the center of the map, in decimal degrees
+            longitude = '-046.2911'; // the longitude of the center of the map, in decimal degrees
+            zoom = '14'; // the zoom level of the map (values between 2 and 17)
+            maptype = '1'; // use 0 for Normal Map, 1 for Satellite, 2 for OpenStreetMap
+            trackvessel = '0'; // MMSI of a vessel (note: vessel will be displayed only if within range of the system) - overrides "zoom"
+            fleet = 'salgado.fernando93@gmail.com'; // the registered email address of a user-defined fleet (user's default fleet is u
+
+        </script>
+        <script type="text/javascript" src="//www.marinetraffic.com/js/embed.js"></script>
+        <div class="row">
+            @foreach (var item in marineTraffic)
+            {
+                <div class="card card-body col-6">
+                    <h5 class="card-title">@item.MMSI</h5>
+                    <br />
+                    <span>Velocidade: @item.Speed km/h</span>
+                    <span>Data: @item.Data</span>
+                </div>
+            }
+        </div>
+
+        <div class="row">
+            @foreach (var item in climaTempo)
+            {
+                <div class="card card-body col-3">
+                    <h5 class="card-title">@item.Data</h5>
+                    <span>Tempo: @item.Tempo</span>
+                    <br />
+                    <span>Umidade Min @item.UmidadeMin Max @item.UmidadeMax </span>
+                    <span>Probabilidade de Chuva @item.ProbabilidadeChuva%</span>
+                    <br />
+                    <span>Velocidade Vento Min: @item.VelocidadeMinimaVento Max: @item.VelocidadeMaximaVento </span>
+                    <span>Sensacao Termica Min: @item.SensacaoTermicaMinima Max: @item.SensacaoTermicaMaxima </span>
+                    <br />
+                    <span>Temperatura Min: @item.TemperaturaMinima Max: @item.TemperaturaMaxima </span>
+                    <span> Nascer do Sol: @item.NascerSol Por do Sol: @item.PorSol </span>
+                    <hr />
+                </div>
+            }
+        </div>
+        
+    </div>
